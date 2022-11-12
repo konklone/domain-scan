@@ -418,7 +418,7 @@ def build_scan_options_parser() -> ArgumentParser:
         "'virginia.gov' will add '.virginia.gov' to the end of all ",
         "input domains."
     ]))
-    parser.add_argument("--output", nargs=1, default=["./"], help="".join([
+    parser.add_argument("--output", nargs=1, default=["./data"], help="".join([
         "Where to output the 'cache/' and 'results/' directories. ",
         "Defaults to './'.",
     ]))

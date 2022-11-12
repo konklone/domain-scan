@@ -37,6 +37,7 @@ def init(environment, options):
     else:
         suffix_list = None
 
+
     return {
         'preload_list': pshtt.load_preload_list(),
         'preload_pending': pshtt.load_preload_pending(),
