@@ -541,15 +541,6 @@ def make_values_single(dct: dict, should_be_singles: Iterable[str]) -> dict:
     return dct
 
 
-def handle_scanner_arguments(scans: List[ModuleType], opts: dict, unknown: List[str]):
-    for scan in scans:
-        if hasattr(scan, "handle_scanner_args"):
-            scan_opts, unknown = scan.handle_scanner_args(unknown, opts)  # type: ignore
-            opts.update(scan_opts)
-    return (opts, unknown)
-# /Argument Parsing #
-
-
 def build_scanner_list(names: List[str],
                        mod: str="scanners") -> List[ModuleType]:
     """

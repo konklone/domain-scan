@@ -62,21 +62,3 @@ def to_rows(data):
 
 # CSV headers for each row of data. Referenced locally.
 headers = ["Completed", "Constant", "Variable"]
-
-
-# Optional handler for custom CLI parameters. Takes the args (as a list of
-# strings) and returns a dict of the options values and names that the scanner
-# expects, and a list of the arguments it didn't know how to parse.
-#
-# Should return a dict of the options parsed by this parser (not a mutated form
-# of the opts that are passed to it) and a list of the remaining args that it
-# didn't recognize.
-def handle_scanner_args(args, opts) -> Tuple[dict, list]:
-    parser = ArgumentParser(prefix_chars="--")
-    parser.add_argument("--noop-delay", nargs=1)
-    parsed, unknown = parser.parse_known_args(args)
-    dicted = vars(parsed)
-    should_be_single = ["noop_delay"]
-    dicted = make_values_single(dicted, should_be_single)
-    dicted["noop_delay"] = int(dicted["noop_delay"], 10)
-    return dicted, unknown

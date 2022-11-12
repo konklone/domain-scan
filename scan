@@ -115,9 +115,6 @@ def run(options=None, unknown=[], cache_dir=None, results_dir=None):
     # Import the scanners:
     scans = scan_utils.build_scanner_list(options["scan"].split(","))
 
-    # Now that we've loaded the modules, we can process args with them:
-    options, unknown = scan_utils.handle_scanner_arguments(scans, options, unknown)
-
     # Kick off the scanning:
     scan_domains(scans, domains, options)
 

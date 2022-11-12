@@ -119,13 +119,6 @@ def test_handle_domains_argument_fnf_error():
         [],
     ),
 ])
-def test_handle_scanner_arguments(scans, opts, args, correct_opts, correct_unknown):
-    # This only handles a basic case and makes sure it's handed off correctly;
-    # tests for the scanner argument parsers themselves should be in the tests
-    # for those scanners.
-    opts, unknown = scan_utils.handle_scanner_arguments(scans, opts, args)
-    assert opts == correct_opts
-    assert unknown == correct_unknown
 
 
 @pytest.mark.parametrize("scanner,options,w_default,w_max,expected", [
