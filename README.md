@@ -216,7 +216,7 @@ General options:
 
 * `--suffix`: **Required.** One or more suffix to filter on, separated by commas as necessary. (e.g. `.gov` or `.yahoo.com` or `.gov,.gov.uk`)
 * `--parents`: A path or URL to a CSV whose first column is second-level domains. Any subdomain not contained within these second-level domains will be excluded.
-* `--include-parents`: Include second-level domains. (Defaults to false.)
+* `--include-parents`: Include second-level domains. (Defaults to true.)
 * `--ignore-www`: Ignore the `www.` prefixes of hostnames. If `www.staging.example.com` is found, it will be treated as `staging.example.com`.
 * `--debug`: display extra output
 
