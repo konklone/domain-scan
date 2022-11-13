@@ -28,19 +28,22 @@ def run(options=None, cache_dir="./cache", results_dir="./results"):
 
     sources = options["gatherers"]
 
-    suffixes = options.get("suffix")
-    suffix_pattern = utils.suffix_pattern(suffixes)
+    suffixes = options.get("suffix", None)
+    if suffixes:
+        suffix_pattern = utils.suffix_pattern(suffixes)
+    else:
+        suffix_pattern = None
 
     # Clear out existing result CSVs, to avoid inconsistent data.
     for result in glob.glob("%s/*.csv" % results_dir):
         os.remove(result)
 
-    # Opt in to include parent (second-level) domains.
-    include_parents = options.get("include_parents", True)
+    # Opt out to exclude parent (second-level) domains.
+    include_parents = options.get("include_parents")
 
     # Opt into stripping www. prefixes from hostnames, effectively
     # collapsing www.[host] and [host] into one record.
-    ignore_www = options.get("ignore_www", True)
+    ignore_www = options.get("ignore_www")
 
     # --parents should be a CSV whose first column is parent domains
     # that will act as a whitelist for which subdomains to gather.
@@ -74,7 +77,7 @@ def run(options=None, cache_dir="./cache", results_dir="./results"):
         for domain in gatherer.gather():
 
             # Always apply the suffix filter to returned names.
-            if not suffix_pattern.search(domain):
+            if (suffix_pattern is not None) and (not suffix_pattern.search(domain)):
                 continue
 
             # Strip off whitespace before pre-processing.

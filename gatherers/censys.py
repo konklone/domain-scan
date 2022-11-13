@@ -49,6 +49,10 @@ class Gatherer(Gatherer):
             logging.warning("Set BIGQUERY_CREDENTIALS or BIGQUERY_CREDENTIALS_PATH environment variables.")
             exit(1)
 
+        if self.suffixes is None:
+            logging.warning("The Censys gatherer requires one or more suffixes provided through --suffix.")
+            exit(1)
+
         # When using this form of instantiation, the client won't pull
         # the project_id out of the creds, has to be set explicitly.
         client = bigquery.Client(

@@ -168,9 +168,9 @@ def build_gather_options_parser(services):
                         help="Use local filesystem cache (censys only).")
     parser.add_argument("--debug", action="store_true",
                         help="Show debug information.")
-    parser.add_argument("--ignore-www", action="store_true",
+    parser.add_argument("--ignore-www", action="store_true", default=True,
                         help="Ignore the www. prefixes of hostnames.")
-    parser.add_argument("--include-parents", action="store_true",
+    parser.add_argument("--include-parents", action="store_true", default=True,
                         help="Include second-level domains.")
     parser.add_argument("--log", nargs=1)
     parser.add_argument("--parents", nargs=1, help="".join([
@@ -182,7 +182,7 @@ def build_gather_options_parser(services):
         "Sort result CSVs by domain name, alphabetically. (Note: this causes ",
         "the entire dataset to be read into memory.)",
     ]))
-    parser.add_argument("--suffix", nargs=1, required=True, help="".join([
+    parser.add_argument("--suffix", nargs=1, required=False, help="".join([
         "Comma-separated list of suffixes, e.g '.gov' ",
         "or '.fed.us' or '.gov,.gov.uk' (required)."
     ]))
@@ -289,7 +289,8 @@ def options_for_gather():
     def fix_suffix(suffix: str) -> str:
         return suffix if suffix.startswith(".") else ".%s" % suffix
 
-    opts["suffix"] = [fix_suffix(s.strip()) for s in opts["suffix"].split(",")
+    if opts.get("suffix"):
+        opts["suffix"] = [fix_suffix(s.strip()) for s in opts["suffix"].split(",")
                       if s.strip()]
     return opts
 
